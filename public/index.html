@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Jobora — Your next opportunity starts here. Search jobs, save listings, and track your applications all in one place." />
+  <title>Jobora — Find Opportunities</title>
+
+  <!-- Google Fonts: Inter for clean, modern typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       MOBILE TOP BAR (visible only on small screens)
+  ═══════════════════════════════════════════ -->
+  <header class="mobile-topbar" role="banner">
+    <div class="mobile-brand">
+      <span class="brand-icon">◈</span>
+      <span class="brand-name">Jobora</span>
+    </div>
+    <button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- Mobile sidebar overlay backdrop -->
+  <div class="sidebar-backdrop" id="sidebar-backdrop" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       LAYOUT WRAPPER
+  ═══════════════════════════════════════════ -->
+  <div class="app-layout">
+
+    <!-- ─────────────────────────────────────────
+         SIDEBAR NAVIGATION
+    ───────────────────────────────────────── -->
+    <nav class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+
+      <!-- Brand -->
+      <div class="sidebar-brand">
+        <span class="brand-icon">◈</span>
+        <div>
+          <div class="brand-name">Jobora</div>
+          <div class="brand-tagline">Your next opportunity starts here.</div>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <ul class="nav-list" role="list">
+        <li>
+          <button class="nav-item active" data-view="discover" id="nav-discover" aria-current="page">
+            <span class="nav-icon">🔍</span>
+            <span class="nav-label">Discover Jobs</span>
+          </button>
+        </li>
+        <li>
+          <button class="nav-item" data-view="saved" id="nav-saved">
+            <span class="nav-icon">🔖</span>
+            <span class="nav-label">Saved Jobs</span>
+            <span class="nav-badge" id="sidebar-saved-count" aria-label="saved jobs count">0</span>
+          </button>
+        </li>
+        <li>
+          <button class="nav-item" data-view="applications" id="nav-applications">
+            <span class="nav-icon">📋</span>
+            <span class="nav-label">My Applications</span>
+            <span class="nav-badge" id="sidebar-app-count" aria-label="applications count">0</span>
+          </button>
+        </li>
+        <li>
+          <button class="nav-item" data-view="profile" id="nav-profile">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">My Profile</span>
+          </button>
+        </li>
+      </ul>
+
+      <!-- Sidebar Stats Summary -->
+      <div class="sidebar-stats">
+        <div class="sidebar-stat-row">
+          <span class="stat-label">Saved</span>
+          <span class="stat-value" id="sidebar-stat-saved">—</span>
+        </div>
+        <div class="sidebar-stat-row">
+          <span class="stat-label">Tracking</span>
+          <span class="stat-value" id="sidebar-stat-tracking">—</span>
+        </div>
+        <div class="sidebar-stat-row">
+          <span class="stat-label">Interviews</span>
+          <span class="stat-value" id="sidebar-stat-interviews">—</span>
+        </div>
+      </div>
+
+      <!-- Motivational Message -->
+      <div class="sidebar-motivation">
+        <p id="motivation-msg">"Every expert was once a beginner. Keep applying."</p>
+      </div>
+
+    </nav>
+    <!-- END SIDEBAR -->
+
+    <!-- ─────────────────────────────────────────
+         MAIN CONTENT AREA
+    ───────────────────────────────────────── -->
+    <main class="main-content" id="main-content" role="main">
+
+      <!-- ═══════════════════════ VIEW: DISCOVER JOBS ═══════════════════════ -->
+      <section class="view active" id="view-discover" aria-labelledby="discover-heading">
+
+        <!-- Page Header -->
+        <div class="page-header">
+          <div class="page-header-text">
+            <h1 id="discover-heading">Discover Jobs</h1>
+            <p class="page-subtitle" id="discover-subtitle">Let's find your next opportunity.</p>
+          </div>
+          <div class="page-header-meta">
+            <span class="current-date" id="current-date"></span>
+          </div>
+        </div>
+
+        <!-- Dashboard Summary Cards -->
+        <div class="dashboard-cards" role="region" aria-label="Dashboard summary">
+          <div class="dash-card dash-card--primary">
+            <div class="dash-card-icon">💼</div>
+            <div class="dash-card-body">
+              <div class="dash-card-value" id="dash-total-jobs">—</div>
+              <div class="dash-card-label">Total Listings</div>
+            </div>
+          </div>
+          <div class="dash-card">
+            <div class="dash-card-icon">🔖</div>
+            <div class="dash-card-body">
+              <div class="dash-card-value" id="dash-saved">—</div>
+              <div class="dash-card-label">Saved Jobs</div>
+            </div>
+          </div>
+          <div class="dash-card">
+            <div class="dash-card-icon">📋</div>
+            <div class="dash-card-body">
+              <div class="dash-card-value" id="dash-applications">—</div>
+              <div class="dash-card-label">Tracked Apps</div>
+            </div>
+          </div>
+          <div class="dash-card dash-card--accent">
+            <div class="dash-card-icon">🎤</div>
+            <div class="dash-card-body">
+              <div class="dash-card-value" id="dash-interviews">—</div>
+              <div class="dash-card-label">Interviews / Offers</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-panel" role="search" aria-label="Job search">
+          <form class="search-form" id="search-form" novalidate>
+            <div class="search-row">
+              <div class="search-field search-field--main">
+                <label for="search-keyword" class="sr-only">Job title, skill, or keyword</label>
+                <span class="search-field-icon">🔍</span>
+                <input
+                  type="text"
+                  id="search-keyword"
+                  name="search"
+                  class="search-input"
+                  placeholder="Job title, skill, or keyword…"
+                  autocomplete="off"
+                  maxlength="200"
+                />
+              </div>
+              <div class="search-field">
+                <label for="search-location" class="sr-only">Location</label>
+                <span class="search-field-icon">📍</span>
+                <input
+                  type="text"
+                  id="search-location"
+                  name="location"
+                  class="search-input"
+                  placeholder="Location or city…"
+                  autocomplete="off"
+                  maxlength="100"
+                />
+              </div>
+              <div class="search-field">
+                <label for="search-company" class="sr-only">Company name</label>
+                <span class="search-field-icon">🏢</span>
+                <input
+                  type="text"
+                  id="search-company"
+                  name="company"
+                  class="search-input"
+                  placeholder="Company name…"
+                  autocomplete="off"
+                  maxlength="150"
+                />
+              </div>
+              <button type="submit" class="btn btn--primary btn--search" id="search-btn">
+                Find Jobs
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Filters & Sorting Row -->
+        <div class="filter-bar" role="group" aria-label="Job filters">
+          <div class="filter-row">
+            <!-- Employment Type -->
+            <div class="filter-group">
+              <label for="filter-type" class="filter-label">Type</label>
+              <select id="filter-type" class="filter-select" aria-label="Filter by employment type">
+                <option value="">All Types</option>
+                <option value="Full-time">Full-time</option>
+                <option value="Part-time">Part-time</option>
+                <option value="Internship">Internship</option>
+                <option value="Contract">Contract</option>
+              </select>
+            </div>
+
+            <!-- Work Mode -->
+            <div class="filter-group">
+              <label for="filter-mode" class="filter-label">Mode</label>
+              <select id="filter-mode" class="filter-select" aria-label="Filter by work mode">
+                <option value="">All Modes</option>
+                <option value="On-site">On-site</option>
+                <option value="Hybrid">Hybrid</option>
+                <option value="Remote">Remote</option>
+              </select>
+            </div>
+
+            <!-- Experience Level -->
+            <div class="filter-group">
+              <label for="filter-level" class="filter-label">Experience</label>
+              <select id="filter-level" class="filter-select" aria-label="Filter by experience level">
+                <option value="">All Levels</option>
+                <option value="Internship">Internship</option>
+                <option value="Fresher / Entry-level">Fresher / Entry-level</option>
+                <option value="Junior">Junior</option>
+                <option value="Mid-level">Mid-level</option>
+                <option value="Senior">Senior</option>
+              </select>
+            </div>
+
+            <!-- Sort -->
+            <div class="filter-group">
+              <label for="filter-sort" class="filter-label">Sort by</label>
+              <select id="filter-sort" class="filter-select" aria-label="Sort job listings">
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+                <option value="title_asc">Title A–Z</option>
+                <option value="title_desc">Title Z–A</option>
+                <option value="salary_desc">Salary: High to Low</option>
+                <option value="salary_asc">Salary: Low to High</option>
+              </select>
+            </div>
+
+            <!-- Clear filters -->
+            <button class="btn btn--ghost btn--sm" id="clear-filters-btn" type="button" aria-label="Clear all filters">
+              ✕ Clear Filters
+            </button>
+          </div>
+        </div>
+
+        <!-- Results Count -->
+        <div class="results-bar" role="status" aria-live="polite">
+          <span id="results-count-text">Searching for jobs…</span>
+        </div>
+
+        <!-- Job Listings Grid -->
+        <div class="job-grid" id="job-grid" role="list" aria-label="Job listings">
+          <!-- Dynamically rendered job cards go here -->
+        </div>
+
+        <!-- Loading State -->
+        <div class="state-panel state--loading" id="jobs-loading" aria-live="polite" aria-label="Loading jobs" style="display:none;">
+          <div class="spinner" aria-hidden="true"></div>
+          <p>Loading jobs…</p>
+        </div>
+
+        <!-- Empty State -->
+        <div class="state-panel state--empty" id="jobs-empty" style="display:none;">
+          <div class="state-icon">🔍</div>
+          <h3>No jobs found</h3>
+          <p>Try adjusting your search terms or filters.</p>
+          <button class="btn btn--secondary" id="empty-clear-btn" type="button">Clear Filters</button>
+        </div>
+
+        <!-- Error State -->
+        <div class="state-panel state--error" id="jobs-error" style="display:none;">
+          <div class="state-icon">⚠️</div>
+          <h3>Something went wrong</h3>
+          <p id="jobs-error-msg">Could not load job listings. Please check that the server is running.</p>
+          <button class="btn btn--secondary" id="jobs-retry-btn" type="button">Retry</button>
+        </div>
+
+      </section>
+      <!-- END VIEW: DISCOVER JOBS -->
+
+
+      <!-- ═══════════════════════ VIEW: SAVED JOBS ═══════════════════════ -->
+      <section class="view" id="view-saved" aria-labelledby="saved-heading" hidden>
+        <div class="page-header">
+          <div class="page-header-text">
+            <h1 id="saved-heading">Saved Jobs</h1>
+            <p class="page-subtitle">Opportunities you bookmarked for later.</p>
+          </div>
+        </div>
+
+        <div class="job-grid" id="saved-grid" role="list" aria-label="Saved job listings"></div>
+
+        <div class="state-panel state--loading" id="saved-loading" style="display:none;">
+          <div class="spinner" aria-hidden="true"></div>
+          <p>Loading saved jobs…</p>
+        </div>
+
+        <div class="state-panel state--empty" id="saved-empty" style="display:none;">
+          <div class="state-icon">🔖</div>
+          <h3>No saved jobs yet</h3>
+          <p>Save opportunities you want to come back to. Click the bookmark icon on any job card.</p>
+          <button class="btn btn--primary" data-view="discover" type="button">Browse Jobs</button>
+        </div>
+
+        <div class="state-panel state--error" id="saved-error" style="display:none;">
+          <div class="state-icon">⚠️</div>
+          <h3>Could not load saved jobs</h3>
+          <p id="saved-error-msg">Please ensure the server is running and try again.</p>
+          <button class="btn btn--secondary" id="saved-retry-btn" type="button">Retry</button>
+        </div>
+      </section>
+      <!-- END VIEW: SAVED JOBS -->
+
+
+      <!-- ═══════════════════════ VIEW: MY APPLICATIONS ═══════════════════════ -->
+      <section class="view" id="view-applications" aria-labelledby="apps-heading" hidden>
+        <div class="page-header">
+          <div class="page-header-text">
+            <h1 id="apps-heading">My Applications</h1>
+            <p class="page-subtitle">Track your application progress. Update status and add notes as you go.</p>
+          </div>
+        </div>
+
+        <!-- Info banner clarifying this is personal tracking, not external submission -->
+        <div class="info-banner" role="note">
+          <span class="info-banner-icon">ℹ️</span>
+          <span><strong>Personal tracker only.</strong> Marking a status here does not submit your application to any employer. Use external Apply links to apply directly on a company's website.</span>
+        </div>
+
+        <!-- Status Filter Tabs -->
+        <div class="status-tabs" role="tablist" aria-label="Filter applications by status">
+          <button class="status-tab active" data-status="" role="tab" aria-selected="true" id="tab-all">All</button>
+          <button class="status-tab" data-status="Interested" role="tab" aria-selected="false">Interested</button>
+          <button class="status-tab" data-status="Preparing to Apply" role="tab" aria-selected="false">Preparing</button>
+          <button class="status-tab" data-status="Applied" role="tab" aria-selected="false">Applied</button>
+          <button class="status-tab" data-status="Assessment" role="tab" aria-selected="false">Assessment</button>
+          <button class="status-tab" data-status="Interview" role="tab" aria-selected="false">Interview</button>
+          <button class="status-tab" data-status="Offer" role="tab" aria-selected="false">Offer</button>
+          <button class="status-tab" data-status="Rejected" role="tab" aria-selected="false">Rejected</button>
+          <button class="status-tab" data-status="Withdrawn" role="tab" aria-selected="false">Withdrawn</button>
+        </div>
+
+        <div class="applications-list" id="applications-list" role="list" aria-label="Application tracker entries"></div>
+
+        <div class="state-panel state--loading" id="apps-loading" style="display:none;">
+          <div class="spinner" aria-hidden="true"></div>
+          <p>Loading applications…</p>
+        </div>
+
+        <div class="state-panel state--empty" id="apps-empty" style="display:none;">
+          <div class="state-icon">📋</div>
+          <h3>No applications tracked yet</h3>
+          <p>Add jobs to your tracker by clicking "Track Application" on any job card or detail view.</p>
+          <button class="btn btn--primary" data-view="discover" type="button">Browse Jobs</button>
+        </div>
+
+        <div class="state-panel state--error" id="apps-error" style="display:none;">
+          <div class="state-icon">⚠️</div>
+          <h3>Could not load applications</h3>
+          <p id="apps-error-msg">Please ensure the server is running and try again.</p>
+          <button class="btn btn--secondary" id="apps-retry-btn" type="button">Retry</button>
+        </div>
+      </section>
+      <!-- END VIEW: MY APPLICATIONS -->
+
+
+      <!-- ═══════════════════════ VIEW: MY PROFILE ═══════════════════════ -->
+      <section class="view" id="view-profile" aria-labelledby="profile-heading" hidden>
+        <div class="page-header">
+          <div class="page-header-text">
+            <h1 id="profile-heading">My Profile & Preferences</h1>
+            <p class="page-subtitle">Tell us about yourself to personalise your experience.</p>
+          </div>
+        </div>
+
+        <div class="info-banner" role="note">
+          <span class="info-banner-icon">ℹ️</span>
+          <span><strong>Demo profile.</strong> This is a single-user demo application. Profile data is stored in MongoDB but is not private or account-protected. Do not enter real sensitive personal information.</span>
+        </div>
+
+        <div class="profile-card">
+          <form class="profile-form" id="profile-form" novalidate aria-label="Job seeker profile form">
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="profile-name" class="form-label">Display Name</label>
+                <input type="text" id="profile-name" name="displayName" class="form-input" placeholder="e.g. Priya Sharma" maxlength="100" autocomplete="off" />
+              </div>
+              <div class="form-group">
+                <label for="profile-exp-level" class="form-label">Experience Level</label>
+                <select id="profile-exp-level" name="experienceLevel" class="form-input">
+                  <option value="">Select level…</option>
+                  <option value="Internship">Internship</option>
+                  <option value="Fresher / Entry-level">Fresher / Entry-level</option>
+                  <option value="Junior">Junior</option>
+                  <option value="Mid-level">Mid-level</option>
+                  <option value="Senior">Senior</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="profile-roles" class="form-label">Preferred Role(s)</label>
+              <input type="text" id="profile-roles" name="preferredRoles" class="form-input" placeholder="e.g. Frontend Developer, Full Stack Developer (comma-separated)" maxlength="500" autocomplete="off" />
+              <span class="form-hint">Separate multiple roles with commas.</span>
+            </div>
+
+            <div class="form-group">
+              <label for="profile-locations" class="form-label">Preferred Location(s)</label>
+              <input type="text" id="profile-locations" name="preferredLocations" class="form-input" placeholder="e.g. Bengaluru, Remote (comma-separated)" maxlength="300" autocomplete="off" />
+              <span class="form-hint">Separate multiple locations with commas.</span>
+            </div>
+
+            <div class="form-group">
+              <label for="profile-skills" class="form-label">Your Skills</label>
+              <input type="text" id="profile-skills" name="skills" class="form-input" placeholder="e.g. JavaScript, React, Node.js, MongoDB (comma-separated)" maxlength="500" autocomplete="off" />
+              <span class="form-hint">Separate skills with commas.</span>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="profile-work-mode" class="form-label">Preferred Work Mode</label>
+                <select id="profile-work-mode" name="preferredWorkMode" class="form-input">
+                  <option value="">No preference</option>
+                  <option value="On-site">On-site</option>
+                  <option value="Hybrid">Hybrid</option>
+                  <option value="Remote">Remote</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <fieldset class="fieldset-group">
+                <legend class="form-label">Preferred Employment Type(s)</legend>
+                <div class="checkbox-group">
+                  <label class="checkbox-label"><input type="checkbox" name="preferredEmploymentTypes" value="Full-time" /> Full-time</label>
+                  <label class="checkbox-label"><input type="checkbox" name="preferredEmploymentTypes" value="Part-time" /> Part-time</label>
+                  <label class="checkbox-label"><input type="checkbox" name="preferredEmploymentTypes" value="Internship" /> Internship</label>
+                  <label class="checkbox-label"><input type="checkbox" name="preferredEmploymentTypes" value="Contract" /> Contract</label>
+                </div>
+              </fieldset>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn btn--primary" id="save-profile-btn">Save Profile</button>
+              <div class="form-feedback" id="profile-feedback" role="alert" aria-live="polite"></div>
+            </div>
+
+          </form>
+        </div>
+      </section>
+      <!-- END VIEW: MY PROFILE -->
+
+    </main>
+    <!-- END MAIN CONTENT -->
+
+  </div>
+  <!-- END APP LAYOUT -->
+
+
+  <!-- ═══════════════════════════════════════════
+       JOB DETAIL MODAL
+  ═══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="job-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-job-title" hidden>
+    <div class="modal" id="job-modal">
+      <div class="modal-header">
+        <div class="modal-title-area">
+          <div class="modal-company-badge" id="modal-company-badge" aria-hidden="true">?</div>
+          <div>
+            <h2 class="modal-job-title" id="modal-job-title">Job Title</h2>
+            <p class="modal-company-name" id="modal-company-name">Company</p>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="modal-close-btn" aria-label="Close job details">✕</button>
+      </div>
+
+      <div class="modal-body" id="modal-body">
+        <!-- Dynamic content rendered by JavaScript -->
+      </div>
+
+      <div class="modal-footer" id="modal-footer">
+        <!-- Dynamic action buttons rendered by JavaScript -->
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       EDIT APPLICATION MODAL
+  ═══════════════════════════════════════════ -->
+  <div class="modal-overlay" id="edit-app-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="edit-app-modal-title" hidden>
+    <div class="modal modal--sm" id="edit-app-modal">
+      <div class="modal-header">
+        <h2 class="modal-job-title" id="edit-app-modal-title">Update Application</h2>
+        <button class="modal-close-btn" id="edit-modal-close-btn" aria-label="Close edit modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <form id="edit-app-form" novalidate>
+          <input type="hidden" id="edit-app-id" />
+
+          <div class="form-group">
+            <label for="edit-status" class="form-label">Status</label>
+            <select id="edit-status" name="status" class="form-input" required>
+              <option value="Interested">Interested</option>
+              <option value="Preparing to Apply">Preparing to Apply</option>
+              <option value="Applied">Applied</option>
+              <option value="Assessment">Assessment</option>
+              <option value="Interview">Interview</option>
+              <option value="Offer">Offer</option>
+              <option value="Rejected">Rejected</option>
+              <option value="Withdrawn">Withdrawn</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="edit-notes" class="form-label">Notes <span class="form-hint-inline">(optional)</span></label>
+            <textarea id="edit-notes" name="notes" class="form-input form-textarea" placeholder="e.g. Applied via LinkedIn, interview scheduled for…" rows="4" maxlength="2000"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="edit-applied-at" class="form-label">Date Applied <span class="form-hint-inline">(optional)</span></label>
+            <input type="date" id="edit-applied-at" name="appliedAt" class="form-input" />
+            <span class="form-hint">Leave blank if you haven't applied yet.</span>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn--primary" id="edit-app-save-btn">Save Changes</button>
+            <button type="button" class="btn btn--ghost" id="edit-modal-cancel-btn">Cancel</button>
+            <div class="form-feedback" id="edit-app-feedback" role="alert" aria-live="polite"></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════
+       TOAST NOTIFICATION
+  ═══════════════════════════════════════════ -->
+  <div class="toast-container" id="toast-container" aria-live="assertive" role="alert"></div>
+
+
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+  <!-- Application JavaScript -->
+  <script src="js/app.js"></script>
+
+</body>
+</html>
